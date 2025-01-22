@@ -14,7 +14,7 @@ const swaggerOptions = {
                 url: 'http://localhost:4000', // URL base do seu servidor
             },
             {
-                url: 'orcamento-app-api.vercel.app', // URL base do seu servidor
+                url: 'https://orcamento-app-api.vercel.app', // URL base do seu servidor
             }
         ],
     },
