@@ -3,9 +3,7 @@ const servicoController = require('../controllers/servico_controller');
 
 const router = express.Router();
 
-router
-    .route('/:serviceRoute')
-    .get(servicoController.getServicos);
+
 
 router
     .route('/teste')
@@ -15,6 +13,9 @@ router
     .route('/add/servico')
     .post(servicoController.addServico);
 
+    router
+    .route('/:tableName')
+    .get(servicoController.getServicos);
 
 module.exports = router;
 

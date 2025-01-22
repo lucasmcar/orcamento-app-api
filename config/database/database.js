@@ -11,17 +11,6 @@ const pool = new Pool({
     
 });
 
-// Testar conexão com o banco de dados
-/*pool.connect((err, release) => {
-    if (err) {
-      console.error('Erro ao conectar ao banco de dados:', err);
-    } else {
-      console.log('Conectado ao banco de dados PostgreSQL');
-      
-    }
-    release();
-  });*/
-
   pool.connect((err, client, release) => {
     if (err) {
         console.error('Erro ao conectar ao banco de dados:', err.stack);
@@ -31,6 +20,6 @@ const pool = new Pool({
     release(); // Libera o cliente de volta ao pool
 });
 
-console.log('Configuração do pool:', pool.options);
+//console.log('Configuração do pool:', pool.options);
 
 module.exports = pool;
