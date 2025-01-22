@@ -39,7 +39,7 @@ router.route("/editar/cliente/:id").put(clienteController.updateCliente);
 
 
 
-router.route("/cliente").get(clienteController.getClientes);
+router.route("/clientes").get(clienteController.getClientes);
 router.route("/cliente2").get(clienteController.getClientes2);
 
 /**

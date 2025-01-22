@@ -14,7 +14,7 @@ router
     .post(servicoController.addServico);
 
     router
-    .route('/:tableName')
+    .route('/servicos')
     .get(servicoController.getServicos);
 
 module.exports = router;

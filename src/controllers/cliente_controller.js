@@ -1,4 +1,5 @@
 const pool = require('../../config/database/database');
+const supabase = require('../../config/supabase/client');
 
 const TABLE_NAME = 'cliente';
 
