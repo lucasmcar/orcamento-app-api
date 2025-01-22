@@ -5,9 +5,9 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.0', // Versão do OpenAPI
         info: {
-            title: 'API de Gestão',
+            title: 'API de Gestão de Clientes, Serviços e Orçamentos', // Título da API
             version: '1.0.0',
-            description: 'Documentação da API para gestão de clientes e serviços',
+            description: 'Documentação da API para gestão de clientes e serviços\ne orçamentos de uma empresa.', // Descrição da AI
         },
         servers: [
             {
