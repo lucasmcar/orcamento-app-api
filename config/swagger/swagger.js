@@ -13,6 +13,9 @@ const swaggerOptions = {
             {
                 url: 'http://localhost:4000', // URL base do seu servidor
             },
+            {
+                url: 'orcamento-app-api.vercel.app', // URL base do seu servidor
+            }
         ],
     },
     apis: ['./src/routes/*.js'], // Caminho dos arquivos de rotas para gerar a documentação automaticamente
