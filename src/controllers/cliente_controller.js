@@ -1,5 +1,5 @@
 const pool = require('../../config/database/database');
-const supabase = require('../../config/supabase/client');
+
 
 const TABLE_NAME = 'cliente';
 
@@ -9,7 +9,6 @@ exports.getClientes = async (req, res) => {
     const query = `SELECT * FROM ${TABLE_NAME}`;
 
     try {
-        const baseUrl = req.baseUrlDynamic;
         const results = await pool.query(query);
 
         // Se não houver resultados, retorna um erro ou uma resposta de "não encontrado"
@@ -88,15 +87,26 @@ exports.getClientesPorId = async (req, res) => {
     }
 }
 
-exports.getClientes2 = async (req, res) => {
-    const { data, error } = await supabase
-            .from('cliente')
-            .select('*');
+exports.deleteCliente = async (req, res) => {
+    const { id } = req.params;
 
-        if (error) {
-            return res.status(500).json({ error: 'Erro ao obter clientes', message: error.message });
-        }
+    const query = `DELETE FROM ${TABLE_NAME} WHERE id = $1`;
+    try{
 
-        return res.status(200).json({ data });
+        
+        pool.query(query, [id], (err, results) => {
+            if (err) {
+                throw err;
+            }
+            res.status(200).send(`Cliente deletado com sucesso!`);
+        });
+
+    } catch( err ){
+        console.error('Erro na consulta:', err);
+        res.status(500).send('Erro interno do servidor');
+    }
 }
+
+
+
     

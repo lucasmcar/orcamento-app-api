@@ -2,10 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const swaggerDocs = require('./config/swagger/swagger');
 const swaggerUi = require('swagger-ui-express');
+/**
+ * DEV
+ */
 const servicoRoute = require('./src/routes/servico_route');
 const clienteRoute = require('./src/routes/cliente_route');
-
+const authRoute = require('./src/routes/auth_route');
+/**
+ * Supabase
+ */
+const supaAuthRoute = require('./src/routes/supa_auth_route');
+const supaClienteRoute = require('./src/routes/supa_cliente_route');
 const app = express();
+const { authenticateToken } = require('./src/middlewares/auth_middleware');
 
 app.use(cors());
 app.use(express.json());
@@ -22,27 +31,21 @@ app.use((req, res, next) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+app.use(authRoute);
+
+app.use(supaAuthRoute);
 // Rotas específicas
-app.use(clienteRoute);
-app.use(servicoRoute);
 
-// Rotas dinâmicas
-/*app.use('/:tableName', (req, res, next) => {
-    const { tableName } = req.params;
-    console.log(`Rota dinâmica acessada: ${req.originalUrl}`);
-    console.log(`Tabela: ${tableName}`);
 
-    // Validação de tabelas dinâmicas permitidas
-    const validTables = ['cliente', 'servico']; // Lista de tabelas permitidas
-    if (!validTables.includes(tableName)) {
-        return res.status(404).json({ message: `Tabela '${tableName}' não encontrada.` });
-    }
 
-    // Defina uma propriedade na requisição para a tabela
-    req.tableName = tableName;
-    next();
-});
-*/
+
+app.use(authenticateToken, clienteRoute);
+app.use(authenticateToken, servicoRoute);
+
+
+app.use(authenticateToken, supaClienteRoute);
+
+
 const port = 4000;
 
 app.listen(port, () => {

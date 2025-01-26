@@ -1,5 +1,6 @@
 const express = require("express");
 const clienteController = require("../controllers/cliente_controller");
+const { authenticateToken } = require("../middlewares/auth_middleware");
 
 const router = express.Router();
 
@@ -32,15 +33,16 @@ const router = express.Router();
  *       500:
  *         description: Erro interno no servidor
  */
-router.route("/add/cliente").post(clienteController.addCliente);
+router.route("/add/cliente", authenticateToken).post(clienteController.addCliente);
 
 
-router.route("/editar/cliente/:id").put(clienteController.updateCliente);
+router.route("/editar/cliente/:id",authenticateToken).put(clienteController.updateCliente);
+
+router.route("/deletar/cliente/:id",authenticateToken).delete(clienteController.deleteCliente);
 
 
+router.route("/clientes", authenticateToken).get(clienteController.getClientes);
 
-router.route("/clientes").get(clienteController.getClientes);
-router.route("/cliente2").get(clienteController.getClientes2);
 
 /**
  * @swagger
@@ -66,6 +68,5 @@ router.route("/cliente2").get(clienteController.getClientes2);
  */
 router.route("/cliente/:id").get(clienteController.getClientesPorId);
 
-router;
 
 module.exports = router;
